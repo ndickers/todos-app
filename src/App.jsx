@@ -12,10 +12,12 @@ function App() {
   useEffect(() => {
     localStorage.setItem("myTodos", JSON.stringify(todos));
   }, [todos]);
-  useEffect(() => {
+
+  function changeTheme() {
+    setMode(!mode);
     const rootElem = document.querySelector(":root").classList;
     rootElem.contains("dark") ? rootElem.remove("dark") : rootElem.add("dark");
-  }, [mode]);
+  }
 
   const filterTodos = todos.filter((todo) => {
     if (filter === "active") {
@@ -56,11 +58,7 @@ function App() {
     <div className="container">
       <header>
         <h1>TODO</h1>
-        <button
-          onClick={() => {
-            setMode(!mode);
-          }}
-        >
+        <button onClick={changeTheme}>
           <img src={mode ? sunBtn : moonBtn} alt="" />
         </button>
       </header>
