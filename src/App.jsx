@@ -3,14 +3,11 @@ import sunBtn from "./assets/images/icon-sun.svg";
 import moonBtn from "./assets/images/icon-moon.svg";
 import { reducer } from "./Reducer.jsx";
 import TodoItem from "./components/TodoItem.jsx";
-
+const todosDb = JSON.parse(localStorage.getItem("myTodos"));
 function App() {
   const [addTodo, setAddTodo] = useState("");
   const [mode, setMode] = useState(false);
-  const [todos, dispatch] = useReducer(
-    reducer,
-    JSON.parse(localStorage.getItem("myTodos"))
-  );
+  const [todos, dispatch] = useReducer(reducer, todosDb);
   const [filter, setFilter] = useState("all");
   useEffect(() => {
     localStorage.setItem("myTodos", JSON.stringify(todos));
