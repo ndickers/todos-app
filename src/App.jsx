@@ -1,8 +1,8 @@
 import { useReducer, useState, useEffect } from "react";
 import sunBtn from "./assets/images/icon-sun.svg";
 import moonBtn from "./assets/images/icon-moon.svg";
-import { reducer } from "./Reducer";
-import TodoItem from "./components/TodoItem";
+import { reducer } from "./Reducer.jsx";
+import TodoItem from "./components/TodoItem.jsx";
 
 function App() {
   const [addTodo, setAddTodo] = useState("");
@@ -15,6 +15,10 @@ function App() {
   useEffect(() => {
     localStorage.setItem("myTodos", JSON.stringify(todos));
   }, [todos]);
+  useEffect(() => {
+    const rootElem = document.querySelector(":root").classList;
+    rootElem.contains("dark") ? rootElem.remove("dark") : rootElem.add("dark");
+  }, [mode]);
 
   const filterTodos = todos.filter((todo) => {
     if (filter === "active") {
@@ -57,10 +61,6 @@ function App() {
         <button
           onClick={() => {
             setMode(!mode);
-            const rootElem = document.querySelector(":root").classList;
-            rootElem.contains("dark")
-              ? rootElem.remove("dark")
-              : rootElem.add("dark");
           }}
         >
           <img src={mode ? sunBtn : moonBtn} alt="" />
